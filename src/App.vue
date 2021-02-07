@@ -1,17 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="nav">
+        <router-link to="/Episodes">Episodes</router-link> | 
+        <router-link to="/Locations">Locations</router-link> | 
+        <router-link to="/Characters">Characters</router-link>
+    </div>
+    <router-view/>
+    <hr>
+    <nav>
+        {{ route.params.page }}
+        <router-link to="/">Prev</router-link> | 
+        <router-link to="/">Next</router-link>
+    </nav>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    setup(){
+        const info = ref({
+            count: 0,
+            pages: 0,
+            next: 0,
+            prev: 0,
+        });
+
+        const route = useRoute();
+
+        return { info, route }
+    }
 }
+</script>
+
+<script setup>
+    import { ref } from 'vue'
+    import { useRoute } from 'vue-router'
+
+    const info = ref({
+        count: 0,
+        pages: 0,
+        next: 0,
+        prev: 0,
+    });
+
+    const route = useRoute();
 </script>
 
 <style>
@@ -21,6 +54,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
