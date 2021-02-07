@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "node-sass": "^5.0.0",
     "postcss": "^7",
     "sass-loader": "^10.1.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
@@ -43,7 +44,7 @@
       "parser": "babel-eslint"
     },
     "rules": {
-        "no-unused-vars": "off"
+      "no-unused-vars": "off"
     }
   },
   "browserslist": [

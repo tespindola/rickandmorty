@@ -7,14 +7,13 @@
     <router-view/>
     <hr>
     <nav>
-        {{ route.params.page }}
-        <router-link to="/">Prev</router-link> | 
-        <router-link to="/">Next</router-link>
+        <router-link :to="prevComp">Prev</router-link>
+        <router-link :to="nextComp">Next</router-link>
     </nav>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, provide, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
@@ -27,24 +26,21 @@ export default {
         });
 
         const route = useRoute();
+        provide("info", info); // Envia la info a todos los componentes hijos de App.vue
 
-        return { info, route }
+        const prevComp = computed(() => ({
+            name: route.name,
+            params: {page: info.value.prev || route.params.page}
+        })); // Es una mini funcion computada, osea que se ejecutara cuando los valores cambien dentro
+
+        const nextComp = computed(() => ({
+            name: route.name,
+            params: {page: info.value.next || route.params.page}
+        }));
+
+        return { info, route, prevComp, nextComp };
     }
 }
-</script>
-
-<script setup>
-    import { ref } from 'vue'
-    import { useRoute } from 'vue-router'
-
-    const info = ref({
-        count: 0,
-        pages: 0,
-        next: 0,
-        prev: 0,
-    });
-
-    const route = useRoute();
 </script>
 
 <style>

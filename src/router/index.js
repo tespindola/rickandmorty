@@ -3,17 +3,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
         path: '/Episodes/:page?',
-        alias: "/",
+        alias: "/:page?",
         name: 'Episodes',
         component: () => import('../views/Episodes.vue')
     },
     {
-        path: '/Locations',
+        path: '/Locations/:page?',
         name: 'Locations',
         component: () => import('../views/Locations.vue')
     },
     {
-        path: '/Characters',
+        path: '/Characters/:page?',
         name: 'Characters',
         component: () => import('../views/Characters.vue')
     },

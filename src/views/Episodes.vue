@@ -1,6 +1,6 @@
 <template>
     <h1>Episodes</h1>
-    <ul>
+    <ul class="data-list">
         <li v-for="episode in episodes" :key="episode.id">
             {{ episode.name }}
         </li>
@@ -8,15 +8,13 @@
 </template>
 
 <script>
-import  {request}  from "graphql-request";
-import { ref } from 'vue';
+import { useQuery } from '../composables/useQuery';
 
 export default {
     setup(){
-        let episodes = ref([]);
-        request("https://rickandmortyapi.com/graphql", /* GraphQL */ `
-            query {
-                episodes {
+        const { results } = useQuery(/* GraphQL */ `
+            query($page: Int) {
+                data: episodes(page: $page) {
                     info {
                         count
                         pages
@@ -32,13 +30,11 @@ export default {
                     }
                 }
             }
-        `).then(data => {
-            episodes.value = data.episodes.results;
-        });
+        `);
 
-        return {
-            episodes,
-        }
+        return { 
+            episodes: results
+        };
     }
 }
 </script>
